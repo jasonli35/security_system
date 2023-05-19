@@ -88,7 +88,12 @@ def buzzer():
 #TODO omar - Fetching this route causes the buzzer to stop buzzing
 @app.post("/stop_buzzer")
 def stop_buzzer():
-    print("stop buzzer is click")           
+    print("stop buzzer is click")
+
+#TODO omar - Queries the SQL sensor data table and returns the most recent sensor data. Acceleration (x,y,z directions) and Rotation (along each axis)Infrared Motion Sensor data Ultrasonic Sensor data Photoresistor data
+@app.post("/sensor_data")
+def addToDB():
+    print("this is called every 5 second")           
     
 
 

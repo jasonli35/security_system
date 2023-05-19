@@ -27,7 +27,18 @@ document.addEventListener("DOMContentLoaded", (event)=> {
     stop_buzzer_button = document.querySelector("#stop_buzzer_button");
     stop_buzzer_button.addEventListener("click", stopBuzzerClick);
 
+    setInterval(addData, 5000);
+
 });
+
+function addData() {
+    fetch("/sensor_data", {method: 'POST'})
+    .catch((error) => {
+        console.log(response);
+        console.error(error);
+       
+    });
+}
 
 
 function leftClick() {
