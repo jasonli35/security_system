@@ -68,20 +68,26 @@ def toggle_video():
     else:
         isVideoOn = True
 
+#TODO: omar- causes the stepper motor to rotate 5 steps in one direction. See the stepper motor tutorial from Tech Assignment 1 for the code that does this.
+
 @app.post("/motor_left")
-def toggle_video():
+def motor_left():
     print("motor left is click")
 
+#TODO: omar- This causes the stepper motor to rotate 5 steps in the opposite direction.
+
 @app.post("/motor_right")
-def toggle_video():
+def motor_right():
     print("motor right is click")
 
+#TODO omar - Fetching this route causes the buzzer to buzz repeatedly
 @app.post("/buzzer")
-def toggle_video():
+def buzzer():
     print("buzzer is click")    
 
+#TODO omar - Fetching this route causes the buzzer to stop buzzing
 @app.post("/stop_buzzer")
-def toggle_video():
+def stop_buzzer():
     print("stop buzzer is click")           
     
 
