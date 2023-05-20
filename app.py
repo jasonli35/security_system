@@ -15,16 +15,20 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 import cv2
 import numpy as np
+import RPi.GPIO as GPIO
 
 
 from fastapi.templating import Jinja2Templates
 
+
 isVideoOn = False
+buzzerPin = 11 # define buzzerPin
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/public", StaticFiles(directory="public"), name="public")
 camera = cv2.VideoCapture(0)
+isBuzzerOn = False
 
 #route for main page
 @app.get('/')
@@ -83,27 +87,44 @@ def motor_right():
 #TODO omar - Fetching this route causes the buzzer to buzz repeatedly
 @app.post("/buzzer")
 def buzzer():
+    isBuzzerOn = True
     print("buzzer is click")    
 
 #TODO omar - Fetching this route causes the buzzer to stop buzzing
 @app.post("/stop_buzzer")
 def stop_buzzer():
+    isBuzzerOn = False
     print("stop buzzer is click")
 
 #TODO omar - Queries the SQL sensor data table and returns the most recent sensor data. Acceleration (x,y,z directions) and Rotation (along each axis)Infrared Motion Sensor data Ultrasonic Sensor data Photoresistor data
 @app.post("/sensor_data")
 def addToDB():
-    print("this is called every 5 second")           
+    print("this is called every 5 second") 
+
+def setup_buzzer():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(buzzerPin, GPIO.OUT)          
     
+def destroy():
+    GPIO.cleanup()
 
 
-
-
-
+def loop():
+    while True:
+         if isBuzzerOn: # if button is pressed
+             GPIO.output(buzzerPin,GPIO.HIGH) # turn on buzzer
+             #print ('buzzer turned on >>>')
+         else : # if button is relessed
+             GPIO.output(buzzerPin,GPIO.LOW) # turn off buzzer
+             #print ('buzzer turned off <<<')
 
 
 if __name__ == "__main__":
-    
+    setup_buzzer()
+    try:
+        loop()
+    except KeyboardInterrupt: # Press ctrl-c to end the program.
+        destroy()   
     uvicorn.run("app:app", host="0.0.0.0", port=6543, reload=True)
 
 
