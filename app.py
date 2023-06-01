@@ -15,7 +15,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 import cv2
 import numpy as np
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 
 
 from fastapi.templating import Jinja2Templates
@@ -27,7 +27,7 @@ buzzerPin = 11 # define buzzerPin
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/public", StaticFiles(directory="public"), name="public")
-camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(1)
 isBuzzerOn = False
 
 #route for main page
@@ -101,30 +101,30 @@ def stop_buzzer():
 def addToDB():
     print("this is called every 5 second") 
 
-def setup_buzzer():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(buzzerPin, GPIO.OUT)          
+# def setup_buzzer():
+#     GPIO.setmode(GPIO.BOARD)
+#     GPIO.setup(buzzerPin, GPIO.OUT)          
     
-def destroy():
-    GPIO.cleanup()
+# def destroy():
+#     GPIO.cleanup()
 
 
-def loop():
-    while True:
-         if isBuzzerOn: # if button is pressed
-             GPIO.output(buzzerPin,GPIO.HIGH) # turn on buzzer
-             #print ('buzzer turned on >>>')
-         else : # if button is relessed
-             GPIO.output(buzzerPin,GPIO.LOW) # turn off buzzer
-             #print ('buzzer turned off <<<')
+# def loop():
+#     while True:
+#          if isBuzzerOn: # if button is pressed
+#              GPIO.output(buzzerPin,GPIO.HIGH) # turn on buzzer
+#              #print ('buzzer turned on >>>')
+#          else : # if button is relessed
+#              GPIO.output(buzzerPin,GPIO.LOW) # turn off buzzer
+#              #print ('buzzer turned off <<<')
 
 
 if __name__ == "__main__":
-    setup_buzzer()
-    try:
-        loop()
-    except KeyboardInterrupt: # Press ctrl-c to end the program.
-        destroy()   
+    # setup_buzzer()
+    # try:
+    #     loop()
+    # except KeyboardInterrupt: # Press ctrl-c to end the program.
+    #     destroy()   
     uvicorn.run("app:app", host="0.0.0.0", port=6543, reload=True)
 
 
