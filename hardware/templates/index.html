@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../public/rest.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h3> Live Streaming </h3>
+            <button id="toggle_button" style="background-color: green; font-size: 16px; margin: 4px 2px; text-align: center; padding: 15px 32px; ">Toggle</button>
+            <button id="motor_left_button" style="background-color: greenyellow; font-size: 16px; margin: 4px 2px; text-align: center; padding: 15px 32px; ">motor left</button>
+            <button id="motor_right_button" style="background-color: yellow; font-size: 16px; margin: 4px 2px; text-align: center; padding: 15px 32px; ">motor right</button>
+            <button id="buzzer_button" style="background-color: red; font-size: 16px; margin: 4px 2px; text-align: center; padding: 15px 32px; ">Buzzer Start</button>
+            <button id="stop_buzzer_button" style="background-color: green; font-size: 16px; margin: 4px 2px; text-align: center; padding: 15px 32px; ">Buzzer Stop</button>
+            <br>
+            <img id = "video" style = "visibility: hidden;" src="{{ url_for('video_feed') }}" width="50%">
+         
+           
+        </div>
+    </body>
+</html>
